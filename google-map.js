@@ -13,4 +13,6 @@
     focusHole(m,ball,green){if(!m||!ball)return;m.__shotTrackHasView=false;if(green){const b=new google.maps.LatLngBounds();b.extend(point(ball));b.extend(point(green));m.fitBounds(b,55);m.__shotTrackHasView=true;}else{m.setCenter(point(ball));m.setZoom(19);m.__shotTrackHasView=true;}},
     preserveView(m){if(m)m.__shotTrackHasView=true;}
   };
+  // Load V3 after the existing round/map code has initialized so it can upgrade the experience safely.
+  window.addEventListener('load',()=>{if(document.querySelector('script[data-shottrack-v3]'))return;const s=document.createElement('script');s.src='v3-experience.js?v=20260915-v3-1';s.dataset.shottrackV3='1';document.body.appendChild(s);});
 })();
