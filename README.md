@@ -1,6 +1,33 @@
 # ShotTrack
 
-ShotTrack is a golf shot-tracking app concept built around one simple goal: **make recording shots during a real round fast enough that tracking does not get in the way of playing golf.**
+ShotTrack is a golf shot-tracking app built around one simple goal: **make recording shots during a real round fast enough that tracking does not get in the way of playing golf.**
+
+## Current Prototype
+
+ShotTrack now has a working, mobile-first browser prototype with no install or backend required. It can:
+
+- Start a 9- or 18-hole round.
+- Record the course, starting hole, and target score/par.
+- Log a shot with a club in a couple of taps.
+- Optionally tag the result as Good, Left, Right, Short, Long, or Penalty.
+- Undo the most recent shot.
+- Move backward and forward through holes.
+- Automatically preserve an unfinished round in the browser.
+- Resume a round after closing/reloading the page.
+- Finish a round and see a hole-by-hole summary.
+- Store completed round history locally on the device.
+
+The prototype is intentionally a **local-first web app**. Data is stored with browser `localStorage`, so there is no account, cloud sync, GPS, or server yet.
+
+## Run It
+
+Clone/download the repository and open `index.html` in a modern browser. The current version has no build step and no dependencies.
+
+Files:
+
+- `index.html` — app screens and structure.
+- `styles.css` — mobile-first interface.
+- `app.js` — round state, shot logging, summaries, history, and local persistence.
 
 ## Why ShotTrack?
 
@@ -10,109 +37,72 @@ The core design question is:
 
 > How little interaction can a golfer get away with while still collecting useful information about every shot?
 
-## Project Goal
+## Product Principles
 
-Build a simple, practical shot tracker that a golfer can realistically use **while playing**, then turn the recorded shots into useful post-round information.
+1. **Speed first.** Logging a shot should take only a few seconds.
+2. **Minimal interruption.** The golfer should spend more time playing than entering data.
+3. **Simple inputs.** Do not collect information just because we can.
+4. **Build something usable before something impressive.**
+5. **Test on a real course.** Desk-speed and golf-speed are not the same thing.
+6. **Add analytics after reliable data collection.** Bad/incomplete inputs make fancy analysis meaningless.
 
-ShotTrack should prioritize:
+## Current Shot Model
 
-- **Speed first** — logging a shot should take only a few seconds.
-- **Minimal interruption** — the golfer should spend more time playing than entering data.
-- **Simple inputs** — avoid requiring unnecessary information for every shot.
-- **Useful history** — recorded rounds should become a useful history of actual on-course performance.
-- **Progressive complexity** — start with a small working tracker before adding advanced analytics or automation.
+For the first prototype, a shot contains only:
+
+- Club
+- Optional result tag
+- Timestamp
+
+That is deliberately small. The next major product decision is determining which additional fields provide enough value to justify another tap during a round.
 
 ## Intended Workflow
 
-A basic ShotTrack round should eventually feel something like this:
-
 1. Start a round.
-2. Select or enter the course and starting hole.
-3. Record each shot with the minimum useful information.
-4. Move quickly to the next shot/hole without navigating through unnecessary screens.
-5. Finish the round.
-6. Review the round and analyze the collected shot data afterward.
+2. Enter the course and round setup.
+3. On each shot, tap a club.
+4. Optionally tap the shot result.
+5. Tap **Log shot**.
+6. Move through the holes.
+7. Finish and review the round.
 
-The exact input system is still being designed. The priority is reducing taps and typing rather than collecting every possible golf statistic from day one.
+## Next Priorities
 
-## MVP
+### 1. Real-course usability test
+Take the prototype through an actual 9- or 18-hole round and measure whether logging feels annoying. This should happen before adding much more complexity.
 
-The first useful version should focus on the fundamentals:
+### 2. Better golf data model
+Decide whether the next version should capture lie, target/distance, shot outcome, putt distance, penalties, or GPS position. Every field needs to earn its place in the on-course workflow.
 
-- Start and finish a round.
-- Track holes during the round.
-- Log individual shots.
-- Associate shots with a club when useful.
-- Store enough information to reconstruct a round.
-- Review the shots from a completed round.
-- Keep the interface/workflow fast enough for actual on-course use.
+### 3. Course-aware scoring
+Add hole pars rather than using only a round-level target, allowing proper score-to-par summaries and hole-level scoring.
 
-The MVP should prove that ShotTrack is **faster and easier to use during a round than manually recording the same information in a booklet.**
+### 4. Club analytics
+Use accumulated shots to show club usage and directional/result tendencies across rounds.
 
-## Future Ideas
+### 5. Installable mobile app
+Turn the web prototype into an installable PWA or move to a native/cross-platform mobile stack once the interaction model has been validated.
 
-Once the basic tracker works reliably, possible extensions include:
+## Longer-Term Ideas
 
-- Club-by-club performance history.
-- Shot-distance tracking.
-- Fairway and green performance.
-- Miss-direction tendencies.
-- Putting statistics.
-- Round summaries and trends over time.
-- Course and hole history.
+- GPS-assisted shot positions and distances.
+- Course/hole database.
 - Visual shot maps.
-- GPS-assisted inputs.
-- Faster one-handed/mobile logging.
-- Automatic or semi-automatic data capture where practical.
-- Recommendations based on a player's historical shot data.
+- Fairway and green performance.
+- Putting statistics.
+- Club-by-club performance history.
+- Miss-direction tendencies.
+- Round trends.
+- One-handed quick logging.
+- Automatic or semi-automatic shot capture where practical.
+- Recommendations based on historical shot data.
+- Cloud sync/account support if the project reaches the point where it is useful.
 
-These are future possibilities rather than requirements for the first version. ShotTrack should earn complexity by first solving the basic logging problem well.
+## Status
 
-## Development Status
+**Playable prototype / product discovery.**
 
-**Early prototype / planning stage.**
-
-This project began as a beginner app-development project. Initial experimentation was done from the terminal while working through the basic structure and programming concepts step by step. The GitHub repository is now the home for continued development.
-
-No production-ready architecture or technology stack should be assumed from this README yet. Those decisions can evolve as the prototype becomes clearer.
-
-## Development Principles
-
-1. **Build something usable before something impressive.**
-2. **Optimize for the golfer on the course.** A feature that creates too much friction defeats the purpose of ShotTrack.
-3. **Keep the data model understandable.** The project should remain approachable while it grows.
-4. **Test with real rounds.** A workflow that feels fast at a desk may feel completely different on a golf course.
-5. **Add analytics after reliable data collection.** Good analysis depends on consistently recorded shots.
-
-## Current Roadmap
-
-### Phase 1 — Foundation
-- Define exactly what information a single shot needs.
-- Define the round, hole, and shot data structures.
-- Establish the initial project structure and development stack.
-- Build a basic working shot-entry flow.
-
-### Phase 2 — Playable Prototype
-- Start a round and progress through holes.
-- Add, edit, and remove shots.
-- Save completed rounds.
-- Review a round after finishing.
-- Test the workflow during an actual round of golf.
-
-### Phase 3 — Analysis
-- Calculate useful round statistics.
-- Add club-level summaries and tendencies.
-- Compare performance across rounds.
-- Identify which additional data is worth the extra effort to collect.
-
-### Phase 4 — Advanced Features
-- Explore GPS/location-assisted tracking.
-- Add richer course information and shot visualization.
-- Reduce manual input further through automation where feasible.
-
-## Repository
-
-This repository will contain the ShotTrack source code, project documentation, experiments, and development history as the idea moves from prototype to usable golf application.
+The goal right now is not to imitate a mature golf-statistics platform. It is to prove that detailed-enough shot tracking can be made quick enough to use while actually golfing.
 
 ---
 
