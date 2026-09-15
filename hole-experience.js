@@ -10,9 +10,10 @@
 
   function sideOfHole(p,h){const a=h.teeCenter||h.start,b=h.greenCenter;if(!a||!b)return'';const x=(b.lng-a.lng)*(p.lat-a.lat)-(b.lat-a.lat)*(p.lng-a.lng);return x>0?'left ':x<0?'right ':'';}
   async function classifyLie(p,h){
-    // Do not use distance-to-green as a shortcut: a bunker/fringe shot beside a green is not on it.
-    // Fetch actual nearby golf polygons and test whether the landing point is inside them.
-    const q=`[out:json][timeout:10];(way["golf"="green"](around:45,${p.lat},${p.lng});way["golf"="fairway"](around:45,${p.lat},${p.lng});way["golf"="bunker"](around:45,${p.lat},${p.lng});way["golf"="water_hazard"](around:45,${p.lat},${p.lng});way["natural"="water"](around:45,${p.lat},${p.lng}););out geom tags;`;
+    // Overpass around() measures distance to a way's nodes, not necessarily to the polygon interior.
+    // A ball can be deep inside a large fairway while every fairway boundary node is >45m away.
+    // Search a golf-sized radius, then use point-in-polygon for the actual classification.
+    const q=`[out:json][timeout:12];(way["golf"="green"](around:220,${p.lat},${p.lng});way["golf"="fairway"](around:220,${p.lat},${p.lng});way["golf"="bunker"](around:220,${p.lat},${p.lng});way["golf"="water_hazard"](around:220,${p.lat},${p.lng});way["natural"="water"](around:220,${p.lat},${p.lng}););out geom tags;`;
     try{const r=await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(q)}`);if(r.ok){const d=await r.json(),hits=(d.elements||[]).filter(e=>inside(p,polygonOf(e))),types=hits.map(e=>e.tags?.golf||e.tags?.natural);if(types.includes('green'))return'green';if(types.includes('bunker'))return'bunker';if(types.includes('water_hazard')||types.includes('water'))return'water';if(types.includes('fairway'))return'fairway';}}
     catch{}
     return`${sideOfHole(p,h)}rough`.trim();
