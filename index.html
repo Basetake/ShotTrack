@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d2d22" />
+  <title>ShotTrack</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div><span class="eyebrow">SHOTTRACK</span><h1 id="screenTitle">Golf, without the paperwork.</h1></div>
+      <button id="historyBtn" class="icon-btn" aria-label="Round history">History</button>
+    </header>
+
+    <section id="homeView" class="view">
+      <div class="hero card">
+        <div class="ball-mark">●</div>
+        <p>Log the shot in seconds. Review the round when you're done.</p>
+        <button id="newRoundBtn" class="primary big">Start a round</button>
+        <button id="resumeBtn" class="secondary hidden">Resume current round</button>
+      </div>
+      <div id="lastRound" class="card hidden"></div>
+    </section>
+
+    <section id="setupView" class="view hidden">
+      <div class="card form-card">
+        <label>Course<input id="courseInput" placeholder="Course name" autocomplete="off" /></label>
+        <div class="grid2">
+          <label>Holes<select id="holesInput"><option value="18">18</option><option value="9">9</option></select></label>
+          <label>Starting hole<input id="startHoleInput" type="number" min="1" max="18" value="1" /></label>
+        </div>
+        <label>Target score / par <input id="parInput" type="number" min="27" max="90" value="72" /></label>
+        <button id="beginBtn" class="primary big">Tee off</button>
+        <button data-home class="text-btn">Cancel</button>
+      </div>
+    </section>
+
+    <section id="roundView" class="view hidden">
+      <div class="round-head card">
+        <div><span id="courseName" class="eyebrow"></span><h2>Hole <span id="holeNum">1</span></h2></div>
+        <div class="score-pill"><span>Shots</span><strong id="holeShots">0</strong></div>
+      </div>
+
+      <div class="card quick-log">
+        <p class="section-label">Club</p>
+        <div id="clubGrid" class="chip-grid"></div>
+        <div class="divider"></div>
+        <p class="section-label">Result <span class="muted">optional</span></p>
+        <div id="resultGrid" class="chip-grid results"></div>
+        <button id="logShotBtn" class="primary big">+ Log shot</button>
+        <p id="logHint" class="hint">Choose a club. Result is optional.</p>
+      </div>
+
+      <div class="card">
+        <div class="section-row"><p class="section-label">This hole</p><button id="undoBtn" class="text-btn danger">Undo last</button></div>
+        <div id="shotList" class="shot-list"><p class="empty">No shots yet.</p></div>
+      </div>
+
+      <div class="hole-actions">
+        <button id="prevHoleBtn" class="secondary">← Previous</button>
+        <button id="nextHoleBtn" class="primary">Next hole →</button>
+      </div>
+      <button id="finishBtn" class="text-btn danger finish">Finish round</button>
+    </section>
+
+    <section id="summaryView" class="view hidden">
+      <div class="card summary-hero"><span class="eyebrow">ROUND COMPLETE</span><h2 id="summaryCourse"></h2><div class="big-score" id="summaryScore">0</div><p id="summaryVsPar"></p></div>
+      <div id="summaryStats" class="stat-grid"></div>
+      <div class="card"><p class="section-label">Hole-by-hole</p><div id="holeSummary"></div></div>
+      <button data-home class="primary big">Done</button>
+    </section>
+
+    <section id="historyView" class="view hidden">
+      <div id="historyList" class="history-list"></div>
+      <button data-home class="secondary big">Back</button>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
