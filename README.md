@@ -26,6 +26,7 @@ The live prototype is deployed with GitHub Pages from `main`.
 - Local data management in History: JSON backup export, validated restore with a pre-import safety copy, undo-last-restore and confirmed per-round deletion.
 - Local-first Supabase cloud backup with email-link authentication, offline-safe device storage and automatic synchronization when signed in.
 - Cross-device synchronization has been validated between phone and desktop.
+- Installable Progressive Web App shell with home-screen launch and cached core interface.
 
 ## Important product decisions
 
@@ -81,6 +82,7 @@ OpenGolfAPI and StakeMarker course data are available under the Open Database Li
 - `data-management.js` — local backup, restore safeguards and round deletion.
 - `cloud-sync.js` — Supabase authentication and local-first cloud synchronization.
 - `supabase-schema.sql` — private per-user backup table, grants, RLS policies and update trigger.
+- `manifest.webmanifest`, `pwa.js`, `sw.js` and `icons/` — installable app metadata, install prompt and cached application shell.
 
 There is intentionally no heavy framework/build system yet. Keep changes simple while the on-course interaction model is still being validated.
 

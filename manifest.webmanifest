@@ -1,0 +1,15 @@
+{
+  "name": "ShotTrack Golf",
+  "short_name": "ShotTrack",
+  "description": "Fast, map-first golf shot tracking and round analysis.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f5f0",
+  "theme_color": "#0d2d22",
+  "orientation": "portrait-primary",
+  "icons": [
+    {"src":"icons/shottrack-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"icons/shottrack-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}
