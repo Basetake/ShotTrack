@@ -4,7 +4,7 @@ ShotTrack is a mobile-first golf shot tracker built around one goal: **record us
 
 ## Current status — September 16, 2026
 
-**Usable V1 progress: roughly 85%.** Course selection, satellite mapping, tee/hole navigation, one-shot-at-a-time recording, putting, penalties, persistence, summaries and history are working. The first round-analytics release now calculates putts, penalties, FIR, GIR, three-putts, average driver distance and tee-miss direction from the data already captured.
+**Usable V1 progress: roughly 85%.** Course selection, satellite mapping, tee/hole navigation, one-shot-at-a-time recording, putting, penalties, persistence, summaries and history are working. A live scorecard shows hole par, strokes taken, running score versus par and the result available on the next shot or putt. The first round-analytics release calculates putts, penalties, FIR, GIR, three-putts, average driver distance and tee-miss direction from the data already captured.
 
 The live prototype is deployed with GitHub Pages from `main`.
 
@@ -21,6 +21,7 @@ The live prototype is deployed with GitHub Pages from `main`.
 - Map-position preservation between shots/holes when a next tee cannot be confidently found.
 - Club selection, mapped shot distances, shot markers and paths.
 - LocalStorage round persistence/resume, undo/reset/navigation, summaries and history.
+- Live in-round scorecard with par, strokes, running score and next-shot scoring context such as Putt for Birdie.
 
 ## Important product decisions
 
