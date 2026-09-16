@@ -4,7 +4,7 @@ ShotTrack is a mobile-first golf shot tracker built around one goal: **record us
 
 ## Current status — September 16, 2026
 
-**Usable V1 progress: roughly 85%.** Course selection, satellite mapping, tee/hole navigation, one-shot-at-a-time recording, putting, penalties, persistence, summaries and history are working. A live scorecard shows hole par, strokes taken, running score versus par and the result available on the next shot or putt. The first round-analytics release calculates putts, penalties, FIR, GIR, three-putts, average driver distance and tee-miss direction from the data already captured.
+**Usable V1 progress: roughly 95%.** Course selection, satellite mapping, tee/hole navigation, one-shot-at-a-time recording, putting, penalties, persistence, summaries and history are working. A live scorecard shows hole par, strokes taken, running score versus par and the result available on the next shot or putt. The first round-analytics release calculates putts, penalties, FIR, GIR, three-putts, average driver distance and tee-miss direction from the data already captured.
 
 The live prototype is deployed with GitHub Pages from `main`.
 
@@ -22,6 +22,7 @@ The live prototype is deployed with GitHub Pages from `main`.
 - Club selection, mapped shot distances, shot markers and paths.
 - LocalStorage round persistence/resume, undo/reset/navigation, summaries and history.
 - Live in-round scorecard with par, strokes, running score and next-shot scoring context such as Putt for Birdie.
+- Saved-round performance dashboard with scoring trends, putting by starting distance, FIR/GIR, driver distance, penalties, miss direction, club-distance ranges and expandable hole-by-hole round history.
 
 ## Important product decisions
 
@@ -73,19 +74,20 @@ OpenGolfAPI and StakeMarker course data are available under the Open Database Li
 - `scorecard-data.js` — free, cacheable community scorecard fallback.
 - `hole-experience.js` — hole/tee geometry and current hole experience.
 - `v3-experience.js` — shot-by-shot V3 interaction layer.
+- `analytics-dashboard.js` — saved-round aggregation, trends and historical round drilldowns.
 
 There is intentionally no heavy framework/build system yet. Keep changes simple while the on-course interaction model is still being validated.
 
 ## Next priorities
 
-### 1. Validate round analytics (~85 → 90%)
-Verify the completed-round summary and History show correct putts, penalties, FIR, GIR, three-putts, average driver distance and left/right tee misses. Metrics intentionally reuse captured data and add no on-course taps.
+### 1. Validate the performance dashboard (~95 → 98%)
+Confirm the Analysis button opens the saved-round dashboard, historical rounds expand correctly, and scoring, putting, FIR/GIR, club-distance and tendency calculations agree with known rounds.
 
-### 2. Build the performance dashboard (~90 → 100% V1)
-Turn saved rounds into trends: scoring over time, putting performance by starting distance, club distance and dispersion, penalty patterns and miss tendencies.
+### 2. Real-course validation (~98 → 100% V1)
+Run the full V1 workflow at golf speed across multiple courses and fix only confirmed usability or data-quality problems before calling V1 complete.
 
-### 3. Real-course validation
-Run the full V1 workflow at golf speed and fix only confirmed usability or data-quality problems before calling V1 complete.
+### 3. Post-V1 analytics depth
+After the core dashboard is validated, consider course filters, time-range filters, richer dispersion views and cloud sync for cross-device history.
 
 ## Known areas to verify next
 
