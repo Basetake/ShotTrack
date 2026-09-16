@@ -2,9 +2,9 @@
 
 ShotTrack is a mobile-first golf shot tracker built around one goal: **record useful shot-by-shot data during a real round without slowing down play.** It was inspired by the Track Pad Pro booklet, but replaces manual paperwork with a fast map-based workflow.
 
-## Current status — September 15, 2026
+## Current status — September 16, 2026
 
-**Usable V1 progress: roughly 55–60%.** The foundation, course selection, satellite mapping, tee/hole navigation, persistence, and core shot mapping are working. The next major phase is making the one-shot-at-a-time recording flow bulletproof, then building useful round statistics and history/dashboard views.
+**Usable V1 progress: roughly 85%.** Course selection, satellite mapping, tee/hole navigation, one-shot-at-a-time recording, putting, penalties, persistence, summaries and history are working. The first round-analytics release now calculates putts, penalties, FIR, GIR, three-putts, average driver distance and tee-miss direction from the data already captured.
 
 The live prototype is deployed with GitHub Pages from `main`.
 
@@ -27,7 +27,7 @@ The live prototype is deployed with GitHub Pages from `main`.
 ### Manual lie selection
 Automatic lie classification was prototyped and then intentionally abandoned. A slightly wrong automatic lie is worse than one quick user input. **Do not reintroduce automatic lie detection unless this decision is explicitly revisited.**
 
-Manual lie choices are intended to be: Fairway, Left Rough, Right Rough, Bunker, Green, Water, Other.
+Manual lie choices are: Fairway, Left Rough, Right Rough, Bunker, Green and Other. Water is handled through the penalty workflow rather than as a normal resulting lie.
 
 OSM tee/green/hole geometry should remain because it is still useful for map framing and navigation; removing automatic lie detection does not mean removing course geometry.
 
@@ -65,21 +65,21 @@ There is intentionally no heavy framework/build system yet. Keep changes simple 
 
 ## Next priorities
 
-### 1. Finish and test shot recording (~60 → 75%)
-Make the one-shot-at-a-time flow reliable: club → landing spot → manual lie → optional note → Next Shot. Require the needed inputs, prevent accidental double entries, verify shot numbering/counting, and ensure putting works cleanly without map taps.
+### 1. Validate round analytics (~85 → 90%)
+Verify the completed-round summary and History show correct putts, penalties, FIR, GIR, three-putts, average driver distance and left/right tee misses. Metrics intentionally reuse captured data and add no on-course taps.
 
-### 2. Finish rounds and statistics (~75 → 90%)
-Validate full 9/18-hole rounds and score totals. Then calculate useful golf stats such as score, FIR/GIR, miss direction, putts/3-putts, club distance/dispersion and penalties.
+### 2. Build the performance dashboard (~90 → 100% V1)
+Turn saved rounds into trends: scoring over time, putting performance by starting distance, club distance and dispersion, penalty patterns and miss tendencies.
 
-### 3. History and dashboard (~90 → 100% V1)
-Turn saved rounds into useful review: recent rounds, scoring trends, club performance and meaningful breakdowns. Analytics should follow reliable data collection, not precede it.
+### 3. Real-course validation
+Run the full V1 workflow at golf speed and fix only confirmed usability or data-quality problems before calling V1 complete.
 
 ## Known areas to verify next
 
-- Ensure one recorded shot locks the UI until **Next Shot** so repeated map taps cannot accidentally create multiple shots.
-- Ensure manual lie selection is required at the correct point.
-- Verify putts count toward shot numbers and hole/round totals everywhere, including summaries.
-- Verify optional shot notes are saved even when navigating/finishing through alternate paths.
+- Verify FIR only counts par-4/par-5 tee shots with Fairway as the resulting lie.
+- Verify GIR includes penalty strokes taken before reaching the green.
+- Verify average driver distance uses mapped Dr shots only.
+- Confirm analytics remain correct for older saved rounds with incomplete par or putting data.
 - Check whether old/stacked map logic can be safely cleaned up only after behavior is covered by testing.
 - Real-course end-to-end testing remains essential before calling V1 complete.
 
