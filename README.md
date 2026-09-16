@@ -52,13 +52,25 @@ The course picker is considered **stable** after substantial debugging. Browser 
 
 The latest course-picker cleanup removed both View All buttons while preserving nearby search, mileage, recents and typed search.
 
+### Course par and scorecard data
+
+ShotTrack uses a layered, no-paid-key strategy so the app is not limited to a small commercial daily quota:
+
+1. OpenGolfAPI course detail and scorecard data, cached locally for 30 days.
+2. The StakeMarker community course dataset as a cacheable complete-scorecard fallback.
+3. OpenStreetMap hole `par` tags when available.
+4. One-tap manual par selection as the final fallback.
+
+OpenGolfAPI and StakeMarker course data are available under the Open Database License (ODbL 1.0); attribution is shown in the app. The fallback dataset currently covers thousands of complete 18-hole scorecards and requires no API key.
+
 ## Files
 
 - `index.html` — application screens and script loading.
 - `styles.css` — mobile-first interface.
 - `app.js` — core round state, legacy shot logic, summaries/history and persistence.
 - `google-map.js` — Google satellite map adapter and map interactions.
-- `course-picker.js` — location-aware course discovery/search/recents.
+- `course-picker.js` — location-aware course discovery/search/recents and OpenGolfAPI matching.
+- `scorecard-data.js` — free, cacheable community scorecard fallback.
 - `hole-experience.js` — hole/tee geometry and current hole experience.
 - `v3-experience.js` — shot-by-shot V3 interaction layer.
 
