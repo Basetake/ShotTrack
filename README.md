@@ -4,7 +4,7 @@ ShotTrack is a mobile-first golf shot tracker built around one goal: **record us
 
 ## Current status — September 16, 2026
 
-**Usable V1 progress: roughly 95%.** Course selection, satellite mapping, tee/hole navigation, one-shot-at-a-time recording, putting, penalties, persistence, summaries and history are working. A live scorecard shows hole par, strokes taken, running score versus par and the result available on the next shot or putt. The first round-analytics release calculates putts, penalties, FIR, GIR, three-putts, average driver distance and tee-miss direction from the data already captured.
+**Usable V1 progress: roughly 98%.** Course selection, satellite mapping, tee/hole navigation, one-shot-at-a-time recording, putting, penalties, persistence, summaries and history are working. A live scorecard shows hole par, strokes taken, running score versus par and the result available on the next shot or putt. Round analytics, local backup tools and cross-device Supabase cloud sync are deployed and user-validated.
 
 The live prototype is deployed with GitHub Pages from `main`.
 
@@ -25,6 +25,7 @@ The live prototype is deployed with GitHub Pages from `main`.
 - Saved-round performance dashboard with scoring trends, putting by starting distance, FIR/GIR, driver distance, penalties, miss direction, club-distance ranges and expandable hole-by-hole round history.
 - Local data management in History: JSON backup export, validated restore with a pre-import safety copy, undo-last-restore and confirmed per-round deletion.
 - Local-first Supabase cloud backup with email-link authentication, offline-safe device storage and automatic synchronization when signed in.
+- Cross-device synchronization has been validated between phone and desktop.
 
 ## Important product decisions
 
@@ -85,17 +86,11 @@ There is intentionally no heavy framework/build system yet. Keep changes simple 
 
 ## Next priorities
 
-### 1. Validate the performance dashboard (~95 → 98%)
-Confirm the Analysis button opens the saved-round dashboard, historical rounds expand correctly, and scoring, putting, FIR/GIR, club-distance and tendency calculations agree with known rounds.
-
-### 2. Validate backup and restore safety
-Export a backup, restore it, confirm saved and active rounds survive, verify Undo last restore, and test one confirmed round deletion.
-
-### 3. Real-course validation (~98 → 100% V1)
+### 1. Real-course validation (~98 → 100% V1)
 Run the full V1 workflow at golf speed across multiple courses and fix only confirmed usability or data-quality problems before calling V1 complete.
 
-### 4. Post-V1 analytics depth
-After the core dashboard is validated, consider course filters, time-range filters, richer dispersion views and cloud sync for cross-device history.
+### 2. Post-V1 analytics depth
+After real-course validation, consider course filters, time-range filters and richer dispersion views.
 
 ## Known areas to verify next
 
