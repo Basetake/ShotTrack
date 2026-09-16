@@ -23,6 +23,7 @@ The live prototype is deployed with GitHub Pages from `main`.
 - LocalStorage round persistence/resume, undo/reset/navigation, summaries and history.
 - Live in-round scorecard with par, strokes, running score and next-shot scoring context such as Putt for Birdie.
 - Saved-round performance dashboard with scoring trends, putting by starting distance, FIR/GIR, driver distance, penalties, miss direction, club-distance ranges and expandable hole-by-hole round history.
+- Local data management in History: JSON backup export, validated restore with a pre-import safety copy, undo-last-restore and confirmed per-round deletion.
 
 ## Important product decisions
 
@@ -75,6 +76,7 @@ OpenGolfAPI and StakeMarker course data are available under the Open Database Li
 - `hole-experience.js` — hole/tee geometry and current hole experience.
 - `v3-experience.js` — shot-by-shot V3 interaction layer.
 - `analytics-dashboard.js` — saved-round aggregation, trends and historical round drilldowns.
+- `data-management.js` — local backup, restore safeguards and round deletion.
 
 There is intentionally no heavy framework/build system yet. Keep changes simple while the on-course interaction model is still being validated.
 
@@ -83,10 +85,13 @@ There is intentionally no heavy framework/build system yet. Keep changes simple 
 ### 1. Validate the performance dashboard (~95 → 98%)
 Confirm the Analysis button opens the saved-round dashboard, historical rounds expand correctly, and scoring, putting, FIR/GIR, club-distance and tendency calculations agree with known rounds.
 
-### 2. Real-course validation (~98 → 100% V1)
+### 2. Validate backup and restore safety
+Export a backup, restore it, confirm saved and active rounds survive, verify Undo last restore, and test one confirmed round deletion.
+
+### 3. Real-course validation (~98 → 100% V1)
 Run the full V1 workflow at golf speed across multiple courses and fix only confirmed usability or data-quality problems before calling V1 complete.
 
-### 3. Post-V1 analytics depth
+### 4. Post-V1 analytics depth
 After the core dashboard is validated, consider course filters, time-range filters, richer dispersion views and cloud sync for cross-device history.
 
 ## Known areas to verify next
@@ -96,6 +101,7 @@ After the core dashboard is validated, consider course filters, time-range filte
 - Verify average driver distance uses mapped Dr shots only.
 - Confirm analytics remain correct for older saved rounds with incomplete par or putting data.
 - Check whether old/stacked map logic can be safely cleaned up only after behavior is covered by testing.
+- Verify exported backups restore saved rounds, the active round and recent courses without corrupting older data.
 - Real-course end-to-end testing remains essential before calling V1 complete.
 
 ## Product principles
