@@ -24,6 +24,7 @@ The live prototype is deployed with GitHub Pages from `main`.
 - Live in-round scorecard with par, strokes, running score and next-shot scoring context such as Putt for Birdie.
 - Saved-round performance dashboard with scoring trends, putting by starting distance, FIR/GIR, driver distance, penalties, miss direction, club-distance ranges and expandable hole-by-hole round history.
 - Local data management in History: JSON backup export, validated restore with a pre-import safety copy, undo-last-restore and confirmed per-round deletion.
+- Local-first Supabase cloud backup with email-link authentication, offline-safe device storage and automatic synchronization when signed in.
 
 ## Important product decisions
 
@@ -77,6 +78,8 @@ OpenGolfAPI and StakeMarker course data are available under the Open Database Li
 - `v3-experience.js` — shot-by-shot V3 interaction layer.
 - `analytics-dashboard.js` — saved-round aggregation, trends and historical round drilldowns.
 - `data-management.js` — local backup, restore safeguards and round deletion.
+- `cloud-sync.js` — Supabase authentication and local-first cloud synchronization.
+- `supabase-schema.sql` — private per-user backup table, grants, RLS policies and update trigger.
 
 There is intentionally no heavy framework/build system yet. Keep changes simple while the on-course interaction model is still being validated.
 
